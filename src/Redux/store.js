@@ -19,7 +19,7 @@ const createList = (state = 0, action) => {
             {
                 for(let i=0; i< ListnamesLen ; i++)
                 {
-                    if(Listnames[i] && Listnames[i].listLabel == targetDom)
+                    if(Listnames[i] && Listnames[i].listLabel === targetDom)
                     {
                         Listnames[i].cardArr.push({descripVal});
                     }
@@ -38,7 +38,7 @@ const createList = (state = 0, action) => {
                 {
                     for(let i=0; i< tempListLeng ; i++)
                     {
-                        if(tempList[i] && tempList[i].listLabel == targetDom)
+                        if(tempList[i] && tempList[i].listLabel === targetDom)
                         {
                             delete(tempList[i])
                         }
@@ -55,7 +55,7 @@ const createList = (state = 0, action) => {
                 let tempListLength = tempLists.length;
                 if(tempLists && tempListLength)
                 {
-                    var foundIndex = tempLists.findIndex(x => x.listLabel == targetDom);
+                    var foundIndex = tempLists.findIndex(x => x.listLabel === targetDom);
                     //var subIndex = tempLists[foundIndex].cardArr.findIndex(y => y.descripVal == "ji")
                     tempLists[foundIndex].cardArr[action.targetIndex] = {"descripVal":action.updatedDesc};
                 }
@@ -73,7 +73,7 @@ const createList = (state = 0, action) => {
                 {
                     for(let index=0; index< tempLstLeng ; index++)
                     {
-                        if(tempLst[index] && tempLst[index].listLabel == targetCard)
+                        if(tempLst[index] && tempLst[index].listLabel === targetCard)
                         {
                             delete(tempLst[index].cardArr[targetList])
                         }
@@ -93,7 +93,7 @@ const createList = (state = 0, action) => {
                 {
                     for(let idx=0; idx< templistLength ; idx++)
                     {
-                        if(templist[idx] && templist[idx].listLabel == targetList)
+                        if(templist[idx] && templist[idx].listLabel === targetList)
                         {
                             templist[idx].cardArr = reorderedArr;
                         }
@@ -133,15 +133,15 @@ const createList = (state = 0, action) => {
                 {
                     for(let iVal=0; iVal< listNamesLen ; iVal++)
                     {
-                        if(listNames[iVal] && listNames[iVal].listLabel == trgtList)
+                        if(listNames[iVal] && listNames[iVal].listLabel === trgtList)
                         {
                             let cardArray = listNames[iVal].cardArr;
                             let cardArrayLen = cardArray.length;
                             for(let cidx=0 ;cidx < cardArrayLen ; cidx++)
                             {
-                                if(cardArray[cidx] && cardArray[cidx].descripVal && cardArray[cidx].descripVal == targtCard)
+                                if(cardArray[cidx] && cardArray[cidx].descripVal && cardArray[cidx].descripVal === targtCard)
                                 {
-                                    if(typeof(listNames[iVal].cardArr[cidx].commentArr)== "undefined")
+                                    if(typeof(listNames[iVal].cardArr[cidx].commentArr) === "undefined")
                                     {
                                         listNames[iVal].cardArr[cidx].commentArr = [];
                                     }

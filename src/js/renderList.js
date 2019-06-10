@@ -32,7 +32,7 @@ class RenderCard extends React.Component
       let ListLen = List ? List.length : 0;
       for(let lisIdx=0 ; lisIdx < ListLen ; lisIdx++)
       {
-        if(List[lisIdx] && List[lisIdx].listLabel && List[lisIdx].listLabel == id)
+        if(List[lisIdx] && List[lisIdx].listLabel && List[lisIdx].listLabel === id)
         {
           if(typeof(List[lisIdx].cardArr) != "undefined")
           {
@@ -71,7 +71,7 @@ class RenderCard extends React.Component
   AddaCard(event)
   {
     var targetDom = event.target.getAttribute("data-parent");
-    if(targetDom)
+    if(targetDom && this.state.description && this.state.description.length > 0)
     {
       this.props.addCardToList(this.state.description , targetDom);
       this.setState({description : "" , cardCount : this.state.cardCount + 1});
@@ -120,6 +120,7 @@ class RenderCard extends React.Component
     event.target.closest(".card-Composer").classList.add("hide");
     let dataparent = event.target.getAttribute("data-parent");
     document.getElementsByClassName(dataparent)[0].classList.remove('hide');
+    this.setState({description : ""})
   }
   addCardToList(event)
   {
@@ -145,7 +146,7 @@ class RenderCard extends React.Component
         let cardArrLen = cardArr.length;
         for(let j=0 ; j < cardArrLen ; j++)
         {
-          if(cardArr[j] && cardArr[j].descripVal && cardArr[j].descripVal == curcardName && cardArr[j].commentArr)
+          if(cardArr[j] && cardArr[j].descripVal && cardArr[j].descripVal === curcardName && cardArr[j].commentArr)
           {
             commentArr = cardArr[j].commentArr
           }
@@ -183,7 +184,7 @@ class RenderCard extends React.Component
                                   value.cardArr && value.cardArr.length ? value.cardArr.map(function(secondvalue , key )
                                   {
                                     return(
-                                      <Draggable key={key} draggableId={secondvalue.descripVal} index={key}>
+                                      <Draggable key={key} draggableId={secondvalue.descripVal ? secondvalue.descripVal : key } index={key}>
                                           {(provided, snapshot) => (   
                                             <div key={key} index={key} className = "parentCont" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
                                               style={getItemStyle(
@@ -249,12 +250,12 @@ export class TextArea extends React.Component {
   }
   onblurFunc(e)
   {
+    if(this.state.textareaValue && this.state.textareaValue.length)
+    {
       let valueObj = {"id": ((this.props.id) ? this.props.id : ""), "value": this.state.textareaValue}
       this.props.cbk && this.props.cbk(valueObj);
-  }
-  componentWillReceiveProps(newProps)
-  {
       this.setState({textareaValue : ""})
+  }
   }
   render() {
       return(
@@ -275,17 +276,24 @@ export class Comment extends React.Component {
   closeOverlay(e)
   {
     document.getElementById("modal").style.display= 'none';
+    this.setState({textAreaVal : ""})
   }
   textAreaChange(event)
   {
     let value = event.target.value;
+    if(value && value.length && value.length > 0)
+    {
     this.setState({textAreaVal : value})
+  }
   }
   textAreaSaveEvent()
   {
+    if(this.state.textAreaVal &&  this.state.textAreaVal.length  && this.state.textAreaVal.length > 0)
+    {
     this.props.event({value : this.state.textAreaVal , targetList : this.props.Listname , targetCard : this.props.curcardName})
     this.setState({textAreaVal : ""})
     this.closeOverlay();
+    }
   }
   render()
   {

@@ -16,7 +16,10 @@ class CreateList extends React.Component
   }
   handleInput(e)
   {
+    if(e.target.value && e.target.value.length && e.target.value.length > 0)
+    {
       this.setState({inputValue : e.target.value})
+  }
   }
   handleAddClick(e)
   {
@@ -25,12 +28,16 @@ class CreateList extends React.Component
   handleCancelAction()
   {
       document.getElementById("open-List").classList.remove('showInput');
+      this.setState({inputValue : ""});
   }
   addCard = (e) => 
   {
+    if(this.state.inputValue && this.state.inputValue.length > 0)
+    {
     this.props.createList(this.state.inputValue);
    this.handleCancelAction(); 
    this.setState({inputValue : ""})
+    }
   }
   render()
   {
