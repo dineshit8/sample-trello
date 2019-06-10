@@ -16,10 +16,10 @@ class CreateList extends React.Component
   }
   handleInput(e)
   {
-    if(e.target.value && e.target.value.length >= 0)
+    if(typeof(e.target.value) != "undefined" && e.target.value.length >= 0)
     {
       this.setState({inputValue : e.target.value})
-  }
+	}
   }
   handleAddClick(e)
   {
