@@ -1,0 +1,341 @@
+%cardBackground
+{
+  background-color:#483d8b;
+  border-radius: 3px;
+  height: auto;
+  min-height: 32px;
+  padding: 4px;
+  transition: background 85ms ease-in,opacity 40ms ease-in,border-color 85ms ease-in;
+  width: 272px;
+  margin: 0 4px;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  margin: 5px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+html , body , #root {
+  width: 100%;
+  height: 100%;
+  min-width: 1024px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  user-select: none;
+  .bodyContainer
+  {
+    position: relative;
+    background: lightseagreen;
+    height: 100%;
+    margin: 20px;
+    .board
+    {
+      height: 100%;
+      width:100%;
+    .createContainer
+    {
+      .createCard
+      {
+        @extend %cardBackground;
+        .open-list.showInput
+        {
+          z-index: 999;
+          &.open-list.showInput
+          {
+          .placeholder
+          {
+            display: none;
+          }
+          .list-name , .list-add{
+            display: block;
+          }
+          .list-name
+          {
+            background: #fff;
+            border: none;
+            box-shadow: inset 0 0 0 2px #0079bf;
+            display: block;
+            margin: 0;
+            transition: margin 85ms ease-in,background 85ms ease-in;
+            width: 100%;
+            padding: 8px 12px;
+            box-sizing: border-box;
+          }
+          .list-add
+          {
+            height: 32px;
+            transition: margin 85ms ease-in,height 85ms ease-in;
+            overflow: hidden;
+            margin: 4px 0 0;
+          }
+          }
+      }
+        .placeholder
+        {
+          padding: 6px 8px;
+          color: #fff;
+          transition: color 85ms ease-in;
+          cursor: pointer;
+          width: calc(100% - 16px);
+          display: inline-block;
+        }
+        .list-name
+        {
+          background: none;
+          border-color: transparent;
+          box-shadow: none;
+          display: none;
+          margin: 0;
+        }
+        .list-add
+        {
+          transition: margin 85ms ease-in,height 85ms ease-in;
+          overflow: hidden;
+          display: none;
+        }
+      }
+    }
+    .existingCardCont
+    {
+      @extend %cardBackground;
+      .cardName
+      {
+        border: 1px solid #fff;
+        font-weight: 700;
+        border-radius: 6px;
+        position: relative;
+        .close-icon{
+          padding: 2px 8px 3px 8px;
+          position: absolute;
+          top: 0;
+          right: 0;
+          z-index: 2;
+          font-family: "FontAwesome";
+          &::after{
+            content: "\f00d";
+          }
+        }
+      }
+      .AddCardContainer
+      {
+        border-radius: 0 0 3px 3px;
+        color: #fff;
+        display: block;
+        flex: 0 0 auto;
+        padding: 8px;
+        position: relative;
+        cursor: pointer;
+        text-decoration: none;
+        &::before
+        {
+          content: "\f067";
+          font-family: FontAwesome;
+         margin-right: 5px;
+        }
+      }
+      .preRenderedCardsArr 
+      {
+        padding: 2px 8px 2px;
+        position: relative;
+        z-index: 10;
+        clear: both;
+        display: block;
+        overflow: hidden;
+        text-decoration: none;
+        word-wrap: break-word;
+        background: #fff;
+        color: #000;
+        text-align: left;
+        font-size: 12px;
+        margin: 4px;
+        border: 4px solid #fff;
+        border-radius: 5px;
+        span.defaultValue
+        {
+          display: block;
+          max-width: 80%;
+          float: left;
+        }
+      }
+      .editcard
+      {
+        display: none;
+        width: calc(100% - 50px);
+        outline: none;
+        border: none;
+        float: left;
+      }
+      .card-Composer 
+      {
+        margin: 10px 0px;
+        .textAreaHolder
+        {
+          background-color: #fff;
+          border-radius: 3px;
+          box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+          cursor: pointer;
+          display: block;
+          margin-bottom: 8px;
+          max-width: 300px;
+          min-height: 20px;
+          text-decoration: none;
+          padding: 6px 8px 2px;
+          position: relative;
+          z-index: 10;
+          .list-card-composer-textarea
+          {
+            overflow: hidden; overflow-wrap: break-word; resize: none; height: 54px;
+            background: none;
+            border: none;
+            box-shadow: none;
+            height: auto;
+            margin-bottom: 4px;
+            max-height: 162px;
+            min-height: 54px;
+            overflow-y: auto;
+            padding: 0;
+            width: 100%;
+            outline: none;
+          }
+        }
+      }
+    }
+    }
+    .hide
+    {
+      display: none !important;
+    }
+  }
+}
+.alignment
+{    
+  height: 100%;
+  position: relative;
+  width: auto;
+  float: left;
+}
+.cardTitle
+{
+  margin-bottom: 10px;
+}
+#modal
+{
+  align-items: flex-start;
+  background-color: rgba(0,0,0,.64);
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 20;
+  display: none;
+  .modalWrapper
+  {
+    display: block;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    right: 0;
+    margin: auto;
+    background-color: #f4f5f7;
+    .fa-close
+    {
+      font-size: 23px;
+    }
+    .wrapperInner
+    {
+      padding: 10px;
+      height: 100%;
+      box-sizing: border-box;
+      margin-top: 20px;
+      .wrapperHeader
+      {
+        background: #e2d5bb;
+        padding: 5px;
+        .cardTitle
+        {
+          font-size: 18px;
+          text-transform: uppercase;
+          .small
+          {
+            font-size: 14px;
+            text-transform: lowercase;
+          }
+        }
+      }
+       .wrapperBody
+        {
+          position: relative;
+          margin: 20px 0px;
+          .commentSection
+          {
+            .commentBody
+            {
+              width: 100%;
+              background-color: #fff;
+              border-radius: 3px;
+              box-shadow: 0 1px 2px -1px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
+              margin: 15px 4px 12px 0;
+              .commentText
+              {
+                background: #fff!important;
+                box-shadow: none;
+                height: 75px;
+                margin: 0;
+                min-height: 75px;
+                padding: 9px 11px;
+                padding-bottom: 0;
+                width: 88%;
+                resize: none;
+                border: 0px;
+              }
+            }
+          }
+        }
+    }
+  }
+}
+.btn
+{
+  margin: 0px 5px;
+  background: #3498db;
+  width: 45%;
+  padding: 4px 0;
+  border-radius: 3px;
+  color: #fff;
+}
+.comments
+{
+  margin: 12px;
+  font-size: 12px;
+  font-style: italic;
+}
+.commentCount
+{
+  color: black;
+    font-size: 12px;
+    text-align: left;
+    font-style: italic;
+}
+// Font Awesome Styles
+.fa
+{
+  &.fa-close, &.fa-pencil , &.fa-comments
+  {
+    float: right;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  &.fa-close , &.fa-comments{
+    margin-right: 5px;
+  }
+}
