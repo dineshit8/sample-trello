@@ -16,7 +16,7 @@ class CreateList extends React.Component
   }
   handleInput(e)
   {
-    if(e.target.value && e.target.value.length && e.target.value.length > 0)
+    if(e.target.value && e.target.value.length && e.target.value.length >= 0)
     {
       this.setState({inputValue : e.target.value})
   }
