@@ -55,7 +55,7 @@ const createList = (state = 0, action) => {
                 let tempListLength = tempLists.length;
                 if(tempLists && tempListLength)
                 {
-                    var foundIndex = tempLists.findIndex(x => x.listLabel === targetDom);
+                    var foundIndex = tempLists.findIndex(x => typeof(x) !="undefined" && x.listLabel ? x.listLabel === targetDom : "");
                     tempLists[foundIndex].cardArr[action.targetIndex] = {"descripVal":action.updatedDesc};
                 }
                 return Object.assign({},state, {
@@ -144,7 +144,7 @@ const createList = (state = 0, action) => {
                                     {
                                         listNames[iVal].cardArr[cidx].commentArr = [];
                                     }
-                                    listNames[iVal].cardArr[cidx].commentArr.push({commentVal})
+                                    listNames[iVal].cardArr[cidx].commentArr.push(commentVal)
                                 }
                             }
                             

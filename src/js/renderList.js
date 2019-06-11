@@ -146,9 +146,16 @@ class RenderCard extends React.Component
         let cardArrLen = cardArr.length;
         for(let j=0 ; j < cardArrLen ; j++)
         {
-          if(cardArr[j] && cardArr[j].descripVal && cardArr[j].descripVal === curcardName && cardArr[j].commentArr)
+          if(cardArr[j] && cardArr[j].descripVal && cardArr[j].descripVal == curcardName)
           {
-            commentArr = cardArr[j].commentArr
+            if(typeof(cardArr[j].commentArr)!="undefined")
+            {
+                commentArr = cardArr[j].commentArr
+            }
+            else
+            {
+              commentArr = [];
+            }
           }
         }
       }
@@ -184,7 +191,8 @@ class RenderCard extends React.Component
                                   value.cardArr && value.cardArr.length ? value.cardArr.map(function(secondvalue , key )
                                   {
                                     return(
-                                      <Draggable key={key} draggableId={secondvalue.descripVal ? secondvalue.descripVal : key } index={key}>
+                                      typeof(secondvalue) != "undefined" ? 
+                                        <Draggable key={key} draggableId={typeof(secondvalue.descripVal) != "undefined" && secondvalue.descripVal.length ? (secondvalue.descripVal + key) : key } index={key}>
                                           {(provided, snapshot) => (   
                                             <div key={key} index={key} className = "parentCont" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
                                               style={getItemStyle(
@@ -201,7 +209,8 @@ class RenderCard extends React.Component
                                               <div className="commentCount">{secondvalue.commentArr ? "Comments :" + secondvalue.commentArr.length : ""}</div>
                                           </div> 
                                         )}
-                                      </Draggable>)
+                                        </Draggable>
+                                      : "") 
                                   })
                                   :""
                                 }
@@ -271,12 +280,16 @@ export class Comment extends React.Component {
     this.textAreaChange = this.textAreaChange.bind(this);
     this.textAreaSaveEvent =this.textAreaSaveEvent.bind(this);
     this.closeOverlay = this.closeOverlay.bind(this);
-    this.state={textAreaVal: ""}
+    this.state={textAreaVal: "" , commentArr : this.props.commentArr ? this.props.commentArr : []}
   }
   closeOverlay(e)
   {
     document.getElementById("modal").style.display= 'none';
-    this.setState({textAreaVal : ""})
+    this.setState({textAreaVal:""});
+  }
+  componentWillReceiveProps(props)
+  {
+    this.setState({commentArr : props.commentArr})
   }
   textAreaChange(event)
   {
@@ -288,12 +301,10 @@ export class Comment extends React.Component {
   }
   textAreaSaveEvent()
   {
-    if(this.state.textAreaVal &&  this.state.textAreaVal.length  && this.state.textAreaVal.length > 0)
-    {
+    this.setState({commentArr : [...this.state.commentArr , this.state.textAreaVal]});
     this.props.event({value : this.state.textAreaVal , targetList : this.props.Listname , targetCard : this.props.curcardName})
     this.setState({textAreaVal : ""})
-    this.closeOverlay();
-    }
+      //this.closeOverlay();
   }
   render()
   {
@@ -307,9 +318,9 @@ export class Comment extends React.Component {
           <div className="wrapperBody">
               <div className = "Addedcomments">
                   {
-                    this.props.commentArr.map(function(value , key)
+                    this.state.commentArr.map(function(value , key)
                     {
-                      return <div className = "comments">{value.commentVal}</div>
+                      return <div className = "comments">{value}</div>
                     })
                   }
               </div>
